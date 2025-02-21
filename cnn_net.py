@@ -44,7 +44,7 @@ class Net(nn.Module):
         self.policy_conv = nn.Conv1d(in_channels=num_channels, out_channels=16, kernel_size= 1, stride= 1)
         self.policy_bn = nn.BatchNorm1d(16)
         self.policy_act = nn.ReLU()
-        self.policy_fc = nn.Linear(16 * 61, 2000)
+        self.policy_fc = nn.Linear(16 * 61, 2200)
         # Value module
         self.value_conv = nn.Conv1d(in_channels=num_channels, out_channels=8, kernel_size=1, stride=1)
         self.value_bn = nn.BatchNorm1d(8)

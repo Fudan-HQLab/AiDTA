@@ -6,12 +6,10 @@ import uuid
 import os
 import subprocess
 
-# list1 = ["AAA","CCC&GGG"]
-# list2 = ["...","(((&)))"]
 # fragment
-list1 = ['GGC&GCC', 'CGT&ACG', 'TAT&ATA', 'CAC&GTG', 'AAG&CTT', 'TACA&TGTA', 'ATCG&CGAT', 'AATA&TATT', 'TAAA&TTTA', 'GTGG&CCAC', 'GGGTG&CACCC', 'CCAGC&GCTGG', 'CGGTG&CACCG', 'AGGTG&CACCT', 'TCAGG&CCTGA',  'TATCTG&CAGATA', 'AACATT&AATGTT', 'GACATT&AATGTC', 'GGGGCA&TGCCCC', 'CTGGCA&TGCCAG', 'AGG', 'CTG', 'GGG', 'GAA', 'GAC', 'GAGA', 'GCCA', 'ATTT', 'TCTG', 'GTTG', 'TTAGT', 'TTAGA', 'TTGGT', 'TTGGA', 'TTTGC', 'TTTTAA', 'TCTTTG', 'TTTTAC', 'TACGTC', 'TTCTGG']
+list1 = ['A', 'G', 'C', 'T', 'GGC&GCC', 'CGT&ACG', 'TAT&ATA', 'CAC&GTG', 'AAG&CTT', 'TACA&TGTA', 'ATCG&CGAT', 'AATA&TATT', 'TAAA&TTTA', 'GTGG&CCAC', 'GGGTG&CACCC', 'CCAGC&GCTGG', 'CGGTG&CACCG', 'AGGTG&CACCT', 'TCAGG&CCTGA',  'TATCTG&CAGATA', 'AACATT&AATGTT', 'GACATT&AATGTC', 'GGGGCA&TGCCCC', 'CTGGCA&TGCCAG', 'AGG', 'CTG', 'GGG', 'GAA', 'GAC', 'GAGA', 'GCCA', 'ATTT', 'TCTG', 'GTTG', 'TTAGT', 'TTAGA', 'TTGGT', 'TTGGA', 'TTTGC', 'TTTTAA', 'TCTTTG', 'TTTTAC', 'TACGTC', 'TTCTGG']
 # structure of fragment
-list2 = ['(((&)))', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '...', '...', '...', '...', '...', '....', '....', '....', '....', '....', '.....', '.....', '.....', '.....', '.....', '......', '......', '......', '......', '......']
+list2 = ['.', '.', '.', '.', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '...', '...', '...', '...', '...', '....', '....', '....', '....', '....', '.....', '.....', '.....', '.....', '.....', '......', '......', '......', '......', '......']
 
 
 def softmax(x):
@@ -84,7 +82,7 @@ class TreeNode(object):
 
 class MCTS(object):
 
-    def __init__(self, policy_value_fn, c_puct=10000, n_playout=1000):
+    def __init__(self, policy_value_fn, c_puct=10, n_playout=1000):
         """policy_value_fn: A function that takes the board state and returns the move probabilities and board evaluation score"""
         self._root = TreeNode(None, 1.0)
         self._policy = policy_value_fn
@@ -207,7 +205,7 @@ class MCTSPlayer(object):
     # Get action
     def get_action(self, sequence, structure):
         # Use the pi vector returned by the MCTS algorithm, like in the AlphaGo_Zero paper
-        sequence_structure_probs = np.zeros(2000)
+        sequence_structure_probs = np.zeros(2200)
         moves, sequences, structures = availabel(sequence, structure, list1, list2)
         # print("Moves in get_action", moves)
 
