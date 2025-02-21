@@ -8,7 +8,7 @@ CONFIG = {
     'batch_size': 512,      # Number of train steps per update
     'kl_targ': 0.02,        # KL divergence target
     'epochs': 5,            # Number of epochs per update
-    'game_batch_num': 300, # Number of training updates
+    'game_batch_num': 3000, # Number of training updates
     'use_frame': 'pytorch', # Use pytorch
     'train_update_interval': 600,   # Model update interval time
     'use_redis': False,     # Data storage method
