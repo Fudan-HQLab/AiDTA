@@ -116,7 +116,7 @@ TCTGTCTGGGCGACATTTGCCGTGGCCACCCAGCGAGAGCTGGGTGGCCAC ........(((((...)))))(((((((
 ## Publication:
 ```
 @article{Unpublished,
-  title={Robust deep learning--based protein sequence design using ProteinMPNN},
+  title={Deep reinforcement learning method for de novo design of nucleic acid aptamers targeting proteins},
   author={Gaoxing Guo, Xiaoming He, Jiaqiang Qian, Lei wang, Xizhou Qian and Qiang Huang},
   journal={Unpublished},
   year={2025},
