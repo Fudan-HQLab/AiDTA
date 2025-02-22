@@ -1,16 +1,17 @@
 import numpy as np
 import copy
 from config import CONFIG
-from game import availabel,game_end
+from game import available,game_end
 import uuid
 import os
 import subprocess
 
 # fragment
-list1 = ['A', 'G', 'C', 'T', 'GGC&GCC', 'CGT&ACG', 'TAT&ATA', 'CAC&GTG', 'AAG&CTT', 'TACA&TGTA', 'ATCG&CGAT', 'AATA&TATT', 'TAAA&TTTA', 'GTGG&CCAC', 'GGGTG&CACCC', 'CCAGC&GCTGG', 'CGGTG&CACCG', 'AGGTG&CACCT', 'TCAGG&CCTGA',  'TATCTG&CAGATA', 'AACATT&AATGTT', 'GACATT&AATGTC', 'GGGGCA&TGCCCC', 'CTGGCA&TGCCAG', 'AGG', 'CTG', 'GGG', 'GAA', 'GAC', 'GAGA', 'GCCA', 'ATTT', 'TCTG', 'GTTG', 'TTAGT', 'TTAGA', 'TTGGT', 'TTGGA', 'TTTGC', 'TTTTAA', 'TCTTTG', 'TTTTAC', 'TACGTC', 'TTCTGG']
+list1 = CONFIG['list1']
 # structure of fragment
-list2 = ['.', '.', '.', '.', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '...', '...', '...', '...', '...', '....', '....', '....', '....', '....', '.....', '.....', '.....', '.....', '.....', '......', '......', '......', '......', '......']
+list2 = CONFIG['list2']
 
+policy_num = CONFIG['policy_num']
 
 def softmax(x):
     probs = np.exp(x - np.max(x))
@@ -82,7 +83,7 @@ class TreeNode(object):
 
 class MCTS(object):
 
-    def __init__(self, policy_value_fn, c_puct=10, n_playout=1000):
+    def __init__(self, policy_value_fn, c_puct, n_playout):
         """policy_value_fn: A function that takes the board state and returns the move probabilities and board evaluation score"""
         self._root = TreeNode(None, 1.0)
         self._policy = policy_value_fn
@@ -115,38 +116,6 @@ class MCTS(object):
             node.expand(act_probs)
         else:
             leaf_value = game_end(sequence, structure)
-            if leaf_value == 1:
-                random_filename = str(uuid.uuid4())
-
-                file = open(random_filename + ".txt", "w")
-                file.write(sequence.replace('&', ''))
-                file.close()
-
-                # Call RNAstructure's Fold tool
-                subprocess.run(['Fold', random_filename + ".txt", random_filename + ".ct"])
-
-                # Call RNAstructure's ct2dot tool
-                subprocess.run(['ct2dot', random_filename + ".ct", '1', random_filename + ".dbn"])
-
-                with open(random_filename + ".dbn", 'r') as file:
-                    lines = file.readlines()
-                    if len(lines) >= 3:  # Ensure the file has at least 3 lines
-                        # Print the third line and use strip() to remove trailing newline
-                        pre_sec = lines[2].strip()
-                    else:
-                        print("The file has insufficient number of lines")
-
-                # Delete the generated files
-                os.remove(random_filename + ".txt")
-                os.remove(random_filename + ".ct")
-                os.remove(random_filename + ".dbn")
-
-                with open("best_sequence.txt",'a+') as file:
-                    file.seek(0)
-                    lines = file.readlines()
-                    if all(sequence.replace('&', '') != line.split(' ')[0] for line in lines):
-                        file.write(sequence.replace('&', '') + " " + pre_sec + "\n")
-                        file.close()
 
         node.update_recursive(leaf_value)
 
@@ -187,7 +156,7 @@ class MCTS(object):
 # AI Player based on MCTS
 class MCTSPlayer(object):
 
-    def __init__(self, policy_value_function, c_puct=5, n_playout=1000, is_selfplay=0):
+    def __init__(self, policy_value_function, c_puct, n_playout, is_selfplay=0):
         self.mcts = MCTS(policy_value_function, c_puct, n_playout)
         self._is_selfplay = is_selfplay
         self.agent = "AI"
@@ -205,8 +174,8 @@ class MCTSPlayer(object):
     # Get action
     def get_action(self, sequence, structure):
         # Use the pi vector returned by the MCTS algorithm, like in the AlphaGo_Zero paper
-        sequence_structure_probs = np.zeros(2200)
-        moves, sequences, structures = availabel(sequence, structure, list1, list2)
+        sequence_structure_probs = np.zeros(policy_num)
+        moves, sequences, structures = available(sequence, structure, list1, list2)
         # print("Moves in get_action", moves)
 
         sequence_structures, act_probs = self.mcts.get_move_probs(sequence, structure, 1e-3)

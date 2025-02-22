@@ -3,18 +3,16 @@ import copy
 import os
 import pickle
 import time
-from game import availabel,State,game_end,self_play
+from game import available,State,game_end,self_play
 from cnn_net import PolicyValueNet
 from mcts import MCTSPlayer
 from config import CONFIG
 
-# list1 = ["AAA","CCC&GGG"]
-# list2 = ["...","(((&)))"]
-# fragment
-list1 = ['A', 'G', 'C', 'T', 'GGC&GCC', 'CGT&ACG', 'TAT&ATA', 'CAC&GTG', 'AAG&CTT', 'TACA&TGTA', 'ATCG&CGAT', 'AATA&TATT', 'TAAA&TTTA', 'GTGG&CCAC', 'GGGTG&CACCC', 'CCAGC&GCTGG', 'CGGTG&CACCG', 'AGGTG&CACCT', 'TCAGG&CCTGA',  'TATCTG&CAGATA', 'AACATT&AATGTT', 'GACATT&AATGTC', 'GGGGCA&TGCCCC', 'CTGGCA&TGCCAG', 'AGG', 'CTG', 'GGG', 'GAA', 'GAC', 'GAGA', 'GCCA', 'ATTT', 'TCTG', 'GTTG', 'TTAGT', 'TTAGA', 'TTGGT', 'TTGGA', 'TTTGC', 'TTTTAA', 'TCTTTG', 'TTTTAC', 'TACGTC', 'TTCTGG']
-# structure of fragment
-list2 = ['.', '.', '.', '.', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '...', '...', '...', '...', '...', '....', '....', '....', '....', '....', '.....', '.....', '.....', '.....', '.....', '......', '......', '......', '......', '......']
 
+# fragment
+list1 = CONFIG['list1']
+# structure of fragment
+list2 = CONFIG['list2']
 
 # Define the entire sequence concatenation process
 class CollectPipeline:

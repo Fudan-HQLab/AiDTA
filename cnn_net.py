@@ -6,7 +6,9 @@ import numpy as np
 import torch.nn.functional as F
 from config import CONFIG
 from torch.cuda.amp import autocast
-from game import availabel,State
+from game import available,State
+
+policy_num = CONFIG['policy_num']
 
 class ResBlock(nn.Module):
 
@@ -44,7 +46,7 @@ class Net(nn.Module):
         self.policy_conv = nn.Conv1d(in_channels=num_channels, out_channels=16, kernel_size= 1, stride= 1)
         self.policy_bn = nn.BatchNorm1d(16)
         self.policy_act = nn.ReLU()
-        self.policy_fc = nn.Linear(16 * 61, 2200)
+        self.policy_fc = nn.Linear(16 * 61, policy_num)
         # Value module
         self.value_conv = nn.Conv1d(in_channels=num_channels, out_channels=8, kernel_size=1, stride=1)
         self.value_bn = nn.BatchNorm1d(8)
@@ -119,7 +121,7 @@ class PolicyValueNet:
     def policy_value_fn(self,sequence, structure, list1, list2):
         self.policy_value_net.eval()
         # Gets a list of legal actions
-        move,sequences,structures = availabel(sequence, structure, list1, list2)
+        move,sequences,structures = available(sequence, structure, list1, list2)
 
         # Convert sequences and structures into tensors
         state = State(sequence, structure)

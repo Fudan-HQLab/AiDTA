@@ -8,18 +8,21 @@ import torch
 import random
 # Initial sequence and secondary structure
 import subprocess
+from config import CONFIG
+
 # Nucleic acid sequence and corresponding secondary structure
-# list1 = ["AAA","CCC&GGG"]
-# list2 = ["...","(((&)))"]
+
 # fragment
-list1 = ['A', 'G', 'C', 'T', 'GGC&GCC', 'CGT&ACG', 'TAT&ATA', 'CAC&GTG', 'AAG&CTT', 'TACA&TGTA', 'ATCG&CGAT', 'AATA&TATT', 'TAAA&TTTA', 'GTGG&CCAC', 'GGGTG&CACCC', 'CCAGC&GCTGG', 'CGGTG&CACCG', 'AGGTG&CACCT', 'TCAGG&CCTGA',  'TATCTG&CAGATA', 'AACATT&AATGTT', 'GACATT&AATGTC', 'GGGGCA&TGCCCC', 'CTGGCA&TGCCAG', 'AGG', 'CTG', 'GGG', 'GAA', 'GAC', 'GAGA', 'GCCA', 'ATTT', 'TCTG', 'GTTG', 'TTAGT', 'TTAGA', 'TTGGT', 'TTGGA', 'TTTGC', 'TTTTAA', 'TCTTTG', 'TTTTAC', 'TACGTC', 'TTCTGG']
+list1 = CONFIG['list1']
 # structure of fragment
-list2 = ['.', '.', '.', '.', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '(((&)))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '((((&))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '(((((&)))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '((((((&))))))', '...', '...', '...', '...', '...', '....', '....', '....', '....', '....', '.....', '.....', '.....', '.....', '.....', '......', '......', '......', '......', '......']
+list2 = CONFIG['list2']
+min_len = CONFIG['min_len']
+max_len = CONFIG['max_len']
 
 src_vocab = {'A':1,'G':2,'C':3,'T':4}
 sec_vocab = {'(':5,')':5,'.':6}
 
-def availabel(sequence, structure, list1, list2):
+def available(sequence, structure, list1, list2):
     sequences = []
     structures = []
     results = []  # Stores all insert results for this round
@@ -48,7 +51,7 @@ def availabel(sequence, structure, list1, list2):
             # Adds the insert result to the result list
             results.append((new_sequence, new_structure))
             #  Combines strings into a numpy array
-            combined = 50*i + position
+            combined = min_len*i + position
             move.append(combined)
     # print("move",move)
     # print("results",results)
@@ -60,7 +63,6 @@ structure = ""
 
 
 def State(sequence, structure):
-    max_len = 61
     # Perform insertion until the sequence length reaches 50
 
     encoded_seq = np.zeros((4, max_len))
@@ -74,7 +76,7 @@ def State(sequence, structure):
         # Convert nucleotides to indices based on the vocabulary dictionary and add to the encoded structure
         encoded_sec[sec_vocab[sec]-5, i] = sec_vocab[sec]
 
-    # Combine the two matrices into a single 6*61 matrix
+    # Combine the two matrices into a single 6*max_len matrix
     combined_matrix = np.vstack((encoded_seq, encoded_sec))
 
     combined_matrix = np.expand_dims(combined_matrix, axis=0)  # Add a dimension at the first axis
@@ -112,13 +114,15 @@ def game_end(sequence, structure):
     os.remove(random_filename + ".dbn")
 
     diff = 0
-    pre_sec = pre_sec.replace(".", "0").replace("(", "1").replace(")", "1")
+    pre_sec1 = pre_sec.replace(".", "0").replace("(", "1").replace(")", "1")
     structure1 = structure.replace('&', '').replace(".", "0").replace("(", "1").replace(")", "1")
 
-    for i in range(len(pre_sec)):
-        diff += abs(int(pre_sec[i]) - int(structure1[i]))
+    similarity = 0
+    for i in range(len(pre_sec1)):
+        if abs(int(pre_sec1[i]) - int(structure1[i])) == 0:
+            similarity += 1
 
-    similarity_score = 1 - diff / len(pre_sec)
+    similarity_score = similarity / len(pre_sec1)
 
     print("similarity_score", similarity_score)
     print(lines[2].strip())
@@ -127,6 +131,12 @@ def game_end(sequence, structure):
     # print("The sequence has exceeded 50")
 
     if similarity_score >= 0.9:
+        with open("best_sequence.txt", 'a+') as file:
+            file.seek(0)
+            lines = file.readlines()
+            if all(sequence.replace('&', '') != line.split(' ')[0] for line in lines):
+                file.write(sequence.replace('&', '') + " " + pre_sec + "\n")
+                file.close()
         return 1
     else:
         return -1
@@ -137,7 +147,7 @@ def self_play(sequence, structure, player):
     sequences, structures, mcts_probs,  = [], [], []
     play_times =0
     while True:
-        if len(sequence.replace('&', '')) < 50:
+        if len(sequence.replace('&', '')) < min_len:
 
             sequence_structure, sequence_structure_probs = player.get_action(
                                                 sequence,
