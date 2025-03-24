@@ -117,7 +117,7 @@ TCTGTCTGGGCGACATTTGCCGTGGCCACCCAGCGAGAGCTGGGTGGCCAC ........(((((...)))))(((((((
 ```
 @article{Unpublished,
   title={Deep reinforcement learning method for de novo design of nucleic acid aptamers targeting proteins},
-  author={Gaoxing Guo, Jiaqiang Qian, Xiaoming He, Lei wang, Xizhou Qian and Qiang Huang},
+  author={Gaoxing Guo, Jiaqiang Qian, Xiaoming He, Lei wang, Xinzhou Qian and Qiang Huang},
   journal={Unpublished},
   year={2025},
   publisher={Unpublished}
