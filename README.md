@@ -9,7 +9,7 @@ This project implements a policy-value network and a self-play pipeline for gene
 ## Code organization
 
 ### `cnn_net.py`
-This file defines the core neural network architecture, including the policy-value network and its training logic. Key components include:
+This file defines the core neural network architecture, including the policy-value network and its training logic.
 
 
 ### `collect.py`
@@ -34,7 +34,7 @@ This file provides the core logic for sequence manipulation, state representatio
 - Python 3.7 or higher
 - Required libraries: `torch`, `numpy`, `pickle`
 
-### Setup
+### Installation
 1. Install the required Python libraries:
    ```bash
    pip install torch numpy
@@ -45,7 +45,7 @@ This file provides the core logic for sequence manipulation, state representatio
 ### Running the Project
 
 #### Construction of fragment pool
-We first use 3D RNA/DNA to predict the 3D structures of single-stranded fragments of lengths 3-6 nt and double-stranded fragments of lengths 3-6 bp. Then, we use HDOCK to perform molecular docking of the fragments with the target protein. The fragments are selected based on their docking sites and scores. Once the sequence fragments and their secondary structures have been filtered, the filtered fragments and their corresponding secondary structures should be placed into `list1` and `list2` in the respective files (`game.py`, `mcts.py`, and `collect.py`). Here's an example of how these lists should look:
+We first use 3dRNA/DNA to predict the 3D structures of single-stranded fragments of lengths 3-6 nt and double-stranded fragments of lengths 3-6 bp. Then, we use HDOCK to perform molecular docking of the fragments with the target protein. The fragments are selected based on their docking sites and scores. Once the sequence fragments and their secondary structures have been filtered, the filtered fragments and their corresponding secondary structures should be placed into `list1` and `list2` in the respective files (`game.py`, `mcts.py`, and `collect.py`). Here's an example of how these lists should look:
 
 ```python
 # Fragment list
