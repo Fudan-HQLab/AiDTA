@@ -13,19 +13,19 @@ This file defines the core neural network architecture, including the policy-val
 
 
 ### `collect.py`
-This file contains the logic for collecting self-play data to train the policy-value network. Key components include:
+This file contains the logic for collecting self-play data to train the policy-value network. 
 
 
 ### `config.py`
-Contains configuration settings for the project, including:
+Contains configuration settings for the project.
 
 
 ### `mcts.py`
-This file implements the Monte Carlo Tree Search (MCTS) algorithm used for decision-making. Key components include:
+This file implements the Monte Carlo Tree Search (MCTS) algorithm used for decision-making.
 
 
 ### `game.py`
-This file provides the core logic for sequence manipulation, state representation, and game evaluation. Key components include:
+This file provides the core logic for sequence manipulation, state representation, and game evaluation.
 
 
 ## How to Use
