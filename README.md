@@ -7,7 +7,7 @@
 Nucleic acid aptamers that bind to proteins play an increasingly important role in biopharmaceuticals and molecular diagnostics. Traditionally, aptamers are discovered through resource-intensive and time-consuming screening of large nucleic acid random sequence libraries using the SELEX method. However, de novo design methods without the need for experimental screening are still lacking.
 
 
-AiDTA (Ai-enabled Docking-Then-Assembling) implements a deep reinforcement learning method to develop an artificial intelligence (AI) agent capable of de novo aptamer design.
+**AiDTA** (**Ai**-enabled **D**ocking-**T**hen-**A**ssembling) implements a deep reinforcement learning method to develop an artificial intelligence (AI) agent capable of de novo aptamer design.
 
 
 This repository include a neural network architecture, a data collection pipeline, a Monte Carlo Tree Search (MCTS) implementation, and configuration settings.
