@@ -4,7 +4,13 @@
 ![Figure 3](figure3-ASSEMBLE.png)
 
 ## Overview
-This project implements a policy-value network and a self-play pipeline for generating and training data for decision-making in a sequence-based task. The main components include a neural network architecture, a data collection pipeline, a Monte Carlo Tree Search (MCTS) implementation, and configuration settings.
+Nucleic acid aptamers that bind to proteins play an increasingly important role in biopharmaceuticals and molecular diagnostics. Traditionally, aptamers are discovered through resource-intensive and time-consuming screening of large nucleic acid random sequence libraries using the SELEX method. However, de novo design methods without the need for experimental screening are still lacking.
+
+
+AiDTA (Ai-enabled Docking-Then-Assembling) implements a deep reinforcement learning method to develop an artificial intelligence (AI) agent capable of de novo aptamer design.
+
+
+This repository include a neural network architecture, a data collection pipeline, a Monte Carlo Tree Search (MCTS) implementation, and configuration settings.
 
 ## Code organization
 
@@ -41,7 +47,7 @@ Contains configuration settings for the project.
 
 ### Prerequisites
 - Python 3.7 or higher
-- Required libraries: `torch`, `numpy`, `pickle`
+- Required libraries: `torch`, `numpy`
 
 ### Installation
 1. Install the required Python libraries:
@@ -54,7 +60,7 @@ Contains configuration settings for the project.
 ### Running the Project
 
 #### Construction of fragment pool
-We first use 3dRNA/DNA to predict the 3D structures of single-stranded fragments of lengths 3-6 nt and double-stranded fragments of lengths 3-6 bp. Then, we use HDOCK to perform molecular docking of the fragments with the target protein. The fragments are selected based on their docking sites and scores. Once the sequence fragments and their secondary structures have been filtered, the filtered fragments and their corresponding secondary structures should be placed into `list1` and `list2` in the respective files (`game.py`, `mcts.py`, and `collect.py`). Here's an example of how these lists should look:
+We first use 3dRNA/DNA to predict the 3D structures of single-stranded fragments of lengths 3-6 nt and double-stranded fragments of lengths 3-6 bp. Then, we use HDOCK to perform molecular docking of the fragments with the target protein. The fragments are selected based on their docking sites and scores. Once the sequence fragments and their secondary structures have been filtered, the filtered fragments and their corresponding secondary structures should be placed into `list1` and `list2` in the respective files (`game.py`, `mcts.py`, and `collect.py`). Here's an example of how these lists should look like:
 
 ```python
 # Fragment list
