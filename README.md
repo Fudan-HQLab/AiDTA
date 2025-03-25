@@ -12,7 +12,7 @@ AiDTA (Ai-enabled Docking-Then-Assembling) implements a deep reinforcement learn
 
 This repository include a neural network architecture, a data collection pipeline, a Monte Carlo Tree Search (MCTS) implementation, and configuration settings.
 
-## Code organization
+## Code Organization
 
 ### `game.py`
 This file provides the core logic for sequence manipulation, state representation, and game evaluation.
@@ -59,7 +59,7 @@ Contains configuration settings for the project.
 
 ### Running the Project
 
-#### Construction of fragment pool
+#### Construction of Fragment Pool
 We first use 3dRNA/DNA to predict the 3D structures of single-stranded fragments of lengths 3-6 nt and double-stranded fragments of lengths 3-6 bp. Then, we use HDOCK to perform molecular docking of the fragments with the target protein. The fragments are selected based on their docking sites and scores. Once the sequence fragments and their secondary structures have been filtered, the filtered fragments and their corresponding secondary structures should be placed into `list1` and `list2` in the respective files (`game.py`, `mcts.py`, and `collect.py`). Here's an example of how these lists should look like:
 
 ```python
@@ -99,7 +99,7 @@ print("Action Probabilities:", act_probs)
 print("Value:", value)
 ```
 
-#### Collect eligible sequences and train model
+#### Collect Eligible Sequences and Train Model
 1. Ensure the `CollectPipeline` class in `collect.py` is correctly initialized with a valid model path (`current_policy.pkl`) or starts with a new model.
 2. Run the script to begin the self-play and data collection pipeline:
    ```bash
@@ -114,7 +114,7 @@ print("Value:", value)
 
 
 
-#### Output example:
+#### Output Example
 ```bash
 TCTGTCTGGGCGACATTTGCCGTGGCCACCCAGCGAGAGCTGGGTGGCCAC ........(((((...)))))(((((((((((((....))))))))))))) ........(((.......)))(((())))(((((....)))))(((()))) 0.92
 ```
@@ -128,7 +128,7 @@ TCTGTCTGGGCGACATTTGCCGTGGCCACCCAGCGAGAGCTGGGTGGCCAC ........(((((...)))))(((((((
 - **0.92**: This is the **sequence similarity between the assembled structure and the predicted structure**, a numerical value that indicates the degree of similarity between the predicted secondary structure and the actual assembled structure. A value closer to 1 indicates higher similarity.
 
 
-## Publication:
+## Citing This Work
 ```
 @article{Unpublished,
   title={Deep reinforcement learning method for de novo design of nucleic acid aptamers targeting proteins},
