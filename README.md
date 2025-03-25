@@ -1,7 +1,6 @@
 
 # AiDTA
 
-![Figure 3](figure3-ASSEMBLE.png)
 
 ## Overview
 Nucleic acid aptamers that bind to proteins play an increasingly important role in biopharmaceuticals and molecular diagnostics. Traditionally, aptamers are discovered through resource-intensive and time-consuming screening of large nucleic acid random sequence libraries using the SELEX method. However, de novo design methods without the need for experimental screening are still lacking.
