@@ -8,6 +8,14 @@ This project implements a policy-value network and a self-play pipeline for gene
 
 ## Code organization
 
+### `game.py`
+This file provides the core logic for sequence manipulation, state representation, and game evaluation.
+
+
+### `mcts.py`
+This file implements the Monte Carlo Tree Search (MCTS) algorithm used for decision-making.
+
+
 ### `cnn_net.py`
 This file defines the core neural network architecture, including the policy-value network and its training logic.
 
@@ -16,16 +24,17 @@ This file defines the core neural network architecture, including the policy-val
 This file contains the logic for collecting self-play data to train the policy-value network. 
 
 
+### `train.py`
+This script implements a training pipeline for a policy-value network.
+
+
 ### `config.py`
 Contains configuration settings for the project.
 
 
-### `mcts.py`
-This file implements the Monte Carlo Tree Search (MCTS) algorithm used for decision-making.
 
 
-### `game.py`
-This file provides the core logic for sequence manipulation, state representation, and game evaluation.
+
 
 
 ## How to Use
