@@ -119,7 +119,7 @@ class MCTS(object):
 
         node.update_recursive(leaf_value)
 
-    def get_move_probs(self, sequence, structure, temp=1):
+    def get_move_probs(self, sequence, structure, temp=1/5):
         """
         Run all simulations and return the available actions with their respective probabilities
         state: Current game state
@@ -178,7 +178,7 @@ class MCTSPlayer(object):
         moves, sequences, structures = available(sequence, structure, list1, list2)
         # print("Moves in get_action", moves)
 
-        sequence_structures, act_probs = self.mcts.get_move_probs(sequence, structure, 1)
+        sequence_structures, act_probs = self.mcts.get_move_probs(sequence, structure, 1/5)
         sequence_structure_probs[list(moves)] = act_probs
         # print("sequence_structures", sequence_structures)
         # print("act_probs", act_probs)
