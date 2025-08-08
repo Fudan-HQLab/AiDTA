@@ -130,7 +130,7 @@ TCTGTCTGGGCGACATTTGCCGTGGCCACCCAGCGAGAGCTGGGTGGCCAC ........(((((...)))))(((((((
 ## Citing This Work
 ```
 @article{Unpublished,
-  title={Deep reinforcement learning method for de novo design of nucleic acid aptamers targeting proteins},
+  title={De novo design of protein-binding aptamers through deep reinforcement learning assembly of nucleic acid fragments},
   author={Gaoxing Guo, Liangwei Guo, Jiaqiang Qian, Xiaoming He, Xinzhou Qian, Lei wang and Qiang Huang},
   journal={Unpublished},
   year={2025},
