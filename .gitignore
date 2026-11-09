@@ -1,0 +1,26 @@
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local Python environments
+.venv/
+venv/
+
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Runtime products (released example data remain tracked)
+/logs/
+/current_policy.pkl
+/train_data_buffer.pkl
+/best_sequence.txt
+/unique_best_sequence.txt
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

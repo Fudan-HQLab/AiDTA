@@ -31,7 +31,7 @@ class ResBlock(nn.Module):
         y = x + y
         return self.conv2_act(y)
 
-#Input：N, 6*61 ---> N,C,H
+# Input: N, 6 x 61 -> N, C, H
 class Net(nn.Module):
 
     def __init__(self, num_channels=256, num_res_blocks=7):
@@ -92,12 +92,9 @@ if __name__ == '__main__' :
     print(policy.shape)
     print(value.shape)
 
-
-
 # Policy value network is used to train the model
 class PolicyValueNet:
-
-    def __init__(self, model_file=None, use_gpu=True, device = 'cuda:1'):
+    def __init__(self, model_file=None, use_gpu=True, device = 'cuda:0'):
         self.use_gpu = use_gpu
         self.l2_const = 2e-3    # l2 regularization
         self.device = device

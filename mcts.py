@@ -103,20 +103,15 @@ class MCTS(object):
             Greedy algorithm to select the next action, the following 'action' takes only valid actions
             act_probs = zip(sequences, structures, act_probs[move])
             """
-
             sequence_structure, node = node.select(self._c_puct)
-
             sequence, structure = sequence_structure
-
         # Use the network to evaluate the leaf node, the network outputs a list of (action, probability) tuples p and the score from the current player's perspective [-1, 1]
-
         # First check if the game is over, then perform neural network evaluation
         if len(sequence.replace('&', '')) < 50:
             act_probs, leaf_value = self._policy(sequence, structure, list1, list2)
             node.expand(act_probs)
         else:
             leaf_value = game_end(sequence, structure)
-
         node.update_recursive(leaf_value)
 
     def get_move_probs(self, sequence, structure, temp=1/5):
